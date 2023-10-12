@@ -1,6 +1,6 @@
 {
   "name": "infra-lambda-layers",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "bin": {
     "infra-lambda-layers": "bin/infra-lambda-layers.js"
   },

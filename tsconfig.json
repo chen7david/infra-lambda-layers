@@ -22,7 +22,11 @@
     "strictPropertyInitialization": false,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "/opt/helpers/math": ["src/layers/helpers/math"],
+    }
   },
   "exclude": [
     "node_modules",
