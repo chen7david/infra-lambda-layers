@@ -21,5 +21,17 @@ export class LambdaLayerExampleStack extends cdk.Stack {
                 lambda.Runtime.NODEJS_18_X,
             ]
         })
+
+        const nodejsFnProps: NodejsFunctionProps = {
+            runtime: lambda.Runtime.NODEJS_18_X,
+            timeout: cdk.Duration.minutes(3),
+            memorySize: 256,
+            bundling: {
+                externalModules: [
+                  'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
+                ],
+            },
+        }
+
     }
 }
