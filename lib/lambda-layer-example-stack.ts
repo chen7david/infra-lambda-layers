@@ -33,5 +33,12 @@ export class LambdaLayerExampleStack extends cdk.Stack {
             },
         }
 
+        const lambdaWithLayer = new NodejsFunction(this, 'lambdaWithLayer', {
+            functionName: 'lambdaWithLayer',
+            entry: path.join(__dirname, '../src/lambdas', 'handler.ts'),
+            handler: 'handler',
+            layers: [this.layer],
+            ...nodejsFnProps,
+        })
     }
 }
