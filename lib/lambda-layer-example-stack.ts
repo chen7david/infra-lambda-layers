@@ -22,13 +22,25 @@ export class LambdaLayerExampleStack extends cdk.Stack {
             ]
         })
 
+        const utilsLayer = new lambda.LayerVersion(this, 'utils-layer', {
+            layerVersionName: 'utils-layer-one',
+            description: 'includes all external dependencies',
+            code: lambda.Code.fromAsset('src/layers/utils'),
+            compatibleRuntimes: [
+                lambda.Runtime.NODEJS_14_X,
+                lambda.Runtime.NODEJS_16_X,
+                lambda.Runtime.NODEJS_18_X,
+            ]
+        })
+
         const nodejsFnProps: NodejsFunctionProps = {
             runtime: lambda.Runtime.NODEJS_18_X,
             timeout: cdk.Duration.minutes(3),
             memorySize: 256,
             bundling: {
                 externalModules: [
-                  'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime
+                  'aws-sdk', // Use the 'aws-sdk' available in the Lambda runtime,
+                  'ulid',
                 ],
             },
         }
@@ -37,7 +49,7 @@ export class LambdaLayerExampleStack extends cdk.Stack {
             functionName: 'lambdaWithLayer',
             entry: path.join(__dirname, '../src/lambdas', 'handler.ts'),
             handler: 'handler',
-            layers: [this.layer],
+            layers: [this.layer, utilsLayer],
             ...nodejsFnProps,
         })
     }
